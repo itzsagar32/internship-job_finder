@@ -1,0 +1,35 @@
+# Environment variables & secrets (CRITICAL: Never commit credentials)
+.env
+.env.*
+*.env
+backend/.env
+backend/.env.*
+internarea/.env
+internarea/.env.*
+internarea/.env.local
+
+# Dependencies
+node_modules/
+backend/node_modules/
+internarea/node_modules/
+
+# Data store & local state
+backend/data/store.json
+backend/data/*.json
+*.log
+npm-debug.log*
+
+# Next.js build output
+internarea/.next/
+internarea/out/
+internarea/build/
+
+# Scratch & Test scripts
+test-*.js
+backend/test-*.js
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

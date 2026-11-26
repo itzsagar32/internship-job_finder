@@ -1,0 +1,19 @@
+{
+  "verbose": false,
+  "ignore": [
+    "data/*",
+    "data/**/*",
+    "*.json",
+    "test-*.js",
+    "node_modules/*"
+  ],
+  "watch": [
+    "index.js",
+    "db.js",
+    "Model/",
+    "Routes/",
+    "middleware/",
+    "utils/"
+  ],
+  "ext": "js,mjs,cjs"
+}
