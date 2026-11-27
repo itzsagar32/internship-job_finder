@@ -12,6 +12,7 @@ import {
   Building,
   KeyRound,
   X,
+  Menu,
   Sparkles,
   Globe,
   CreditCard,
@@ -45,7 +46,12 @@ const Navbar = () => {
 
   // Language Dropdown & French OTP State
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [frenchOtpInput, setFrenchOtpInput] = useState("");
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [router.asPath]);
   const [isSubmittingFrenchOtp, setIsSubmittingFrenchOtp] = useState(false);
 
   // Auth Modal State
@@ -206,17 +212,30 @@ const Navbar = () => {
   return (
     <>
       <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            {/* Logo */}
-            <div className="flex items-center space-x-6">
-              <Link href="/" className="flex items-center space-x-2">
-                <span className="text-2xl font-black tracking-tight text-blue-600">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-14 sm:h-16 items-center">
+            {/* Logo & Mobile Menu Button */}
+            <div className="flex items-center space-x-2 sm:space-x-6">
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-1.5 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition focus:outline-hidden"
+                aria-label="Toggle navigation menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5 text-gray-700" />
+                ) : (
+                  <Menu className="w-5 h-5 text-gray-700" />
+                )}
+              </button>
+
+              <Link href="/" className="flex items-center space-x-1 sm:space-x-2">
+                <span className="text-lg sm:text-2xl font-black tracking-tight text-blue-600">
                   INTERN<span className="text-slate-800">SHALA</span>
                 </span>
               </Link>
 
-              {/* Navigation Links */}
+              {/* Navigation Links (Desktop) */}
               <nav className="hidden md:flex items-center space-x-5">
                 <Link
                   href="/internship"
@@ -255,18 +274,18 @@ const Navbar = () => {
             </div>
 
             {/* Right Side / Actions */}
-            <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="flex items-center space-x-1.5 sm:space-x-3">
               {/* Language Selector Dropdown */}
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                  className="flex items-center space-x-1 px-2.5 py-1.5 rounded-md border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition"
+                  className="flex items-center space-x-1 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-md border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition"
                   title="Switch Language"
                 >
                   <Globe className="w-3.5 h-3.5 text-blue-600" />
-                  <span className="uppercase">{language}</span>
-                  <span className="text-gray-400 text-[10px]">▼</span>
+                  <span className="uppercase text-[11px] sm:text-xs">{language}</span>
+                  <span className="text-gray-400 text-[9px] sm:text-[10px]">▼</span>
                 </button>
 
                 {isLangDropdownOpen && (
@@ -301,7 +320,7 @@ const Navbar = () => {
               </div>
 
               {user ? (
-                <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="flex items-center space-x-1.5 sm:space-x-3">
                   {/* Role Specific Quick Links */}
                   {user.role === "student" && (
                     <Link
@@ -316,7 +335,7 @@ const Navbar = () => {
                   {user.role === "company" && (
                     <Link
                       href="/company/dashboard"
-                      className="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
+                      className="hidden sm:inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
                     >
                       <Building className="w-3.5 h-3.5 mr-1" />
                       Company Portal
@@ -326,7 +345,7 @@ const Navbar = () => {
                   {user.role === "admin" && (
                     <Link
                       href="/adminpanel"
-                      className="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-md bg-amber-50 text-amber-700 hover:bg-amber-100 transition"
+                      className="hidden sm:inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-md bg-amber-50 text-amber-700 hover:bg-amber-100 transition"
                     >
                       <ShieldCheck className="w-3.5 h-3.5 mr-1" />
                       Admin Panel
@@ -336,9 +355,9 @@ const Navbar = () => {
                   {/* Profile Link with Role Tag */}
                   <Link
                     href="/profile"
-                    className="flex items-center space-x-2 p-1 rounded-full hover:bg-gray-100 transition"
+                    className="flex items-center space-x-1.5 sm:space-x-2 p-1 rounded-full hover:bg-gray-100 transition"
                   >
-                    <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-xs">
                       {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                     </div>
                     <div className="hidden lg:block text-left">
@@ -360,13 +379,13 @@ const Navbar = () => {
                   </button>
                 </div>
               ) : (
-                <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="flex items-center space-x-1.5 sm:space-x-3">
                   <button
                     onClick={() => {
                       setAuthMode("login");
                       setIsAuthModalOpen(true);
                     }}
-                    className="text-xs sm:text-sm font-semibold text-blue-600 border border-blue-600 px-3 py-1.5 rounded-md hover:bg-blue-50 transition"
+                    className="text-xs sm:text-sm font-semibold text-blue-600 border border-blue-600 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-md hover:bg-blue-50 transition"
                   >
                     Login
                   </button>
@@ -376,7 +395,7 @@ const Navbar = () => {
                       setAuthMode("register");
                       setIsAuthModalOpen(true);
                     }}
-                    className="text-xs sm:text-sm font-semibold text-white bg-blue-600 px-3.5 py-1.5 rounded-md hover:bg-blue-700 shadow-xs transition"
+                    className="text-xs sm:text-sm font-semibold text-white bg-blue-600 px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-md hover:bg-blue-700 shadow-xs transition"
                   >
                     Register
                   </button>
@@ -392,6 +411,111 @@ const Navbar = () => {
               )}
             </div>
           </div>
+
+          {/* Mobile Navigation Drawer */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-gray-100 py-3 px-1 space-y-1 bg-white">
+              <Link
+                href="/internship"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+              >
+                <Briefcase className="w-4 h-4 mr-2.5 text-blue-600" />
+                {t("nav_internships")}
+              </Link>
+              <Link
+                href="/job"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+              >
+                <Briefcase className="w-4 h-4 mr-2.5 text-blue-600" />
+                {t("nav_jobs")}
+              </Link>
+              <Link
+                href="/resume-builder"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-purple-700 hover:bg-purple-50 transition"
+              >
+                <Sparkles className="w-4 h-4 mr-2.5 text-purple-600" />
+                {t("nav_resume_builder")}
+              </Link>
+              <Link
+                href="/subscription"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-amber-700 hover:bg-amber-50 transition"
+              >
+                <CreditCard className="w-4 h-4 mr-2.5 text-amber-600" />
+                {t("nav_pricing")}
+              </Link>
+              <Link
+                href="/public-space"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-emerald-700 hover:bg-emerald-50 transition"
+              >
+                <Users className="w-4 h-4 mr-2.5 text-emerald-600" />
+                <span>Public Space</span>
+              </Link>
+
+              {user && (
+                <div className="pt-2 border-t border-gray-100 mt-2 space-y-1">
+                  <Link
+                    href="/profile"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+                  >
+                    <UserIcon className="w-4 h-4 mr-2.5 text-gray-500" />
+                    <span>My Profile ({user.name})</span>
+                  </Link>
+
+                  {user.role === "student" && (
+                    <Link
+                      href="/userapplication"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-blue-700 hover:bg-blue-50 transition"
+                    >
+                      <FileText className="w-4 h-4 mr-2.5 text-blue-600" />
+                      {t("nav_applications")}
+                    </Link>
+                  )}
+
+                  {user.role === "company" && (
+                    <Link
+                      href="/company/dashboard"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-indigo-700 hover:bg-indigo-50 transition"
+                    >
+                      <Building className="w-4 h-4 mr-2.5 text-indigo-600" />
+                      <span>Company Portal</span>
+                    </Link>
+                  )}
+
+                  {user.role === "admin" && (
+                    <Link
+                      href="/adminpanel"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-amber-700 hover:bg-amber-50 transition"
+                    >
+                      <ShieldCheck className="w-4 h-4 mr-2.5 text-amber-600" />
+                      <span>Admin Panel</span>
+                    </Link>
+                  )}
+                </div>
+              )}
+
+              {!user && (
+                <div className="pt-2 border-t border-gray-100 mt-2">
+                  <Link
+                    href="/adminlogin"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center px-3 py-2 rounded-lg text-xs font-medium text-gray-500 hover:bg-gray-50 transition"
+                  >
+                    <KeyRound className="w-3.5 h-3.5 mr-2" />
+                    <span>Administrator Gateway</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </header>
 

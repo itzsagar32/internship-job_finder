@@ -108,13 +108,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <I18nProvider>
         <AuthInitializer />
         <GlobalRealtimeListener />
-        <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 relative">
-          {/* Official Test Mode Diagonal Corner Ribbon */}
-          <div className="fixed top-0 right-0 z-40 pointer-events-none overflow-hidden w-28 h-28" title="Test Mode: No payment required">
-            <div className="absolute top-4 -right-8 w-32 bg-rose-600 text-white font-bold text-[10px] tracking-wider uppercase py-1 text-center rotate-45 shadow-md">
-              Test Mode
-            </div>
-          </div>
+        <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 overflow-x-hidden">
           <ToastContainer position="top-right" autoClose={4000} />
           <Navbar />
           <main className="flex-grow">

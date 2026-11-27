@@ -164,28 +164,28 @@ export default function SvgSlider() {
     matchesTag(item, selectedCategory)
   );
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 overflow-hidden">
       {/* hero section */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+      <div className="text-center mb-8 sm:mb-12">
+        <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">
           Make your dream career a reality
         </h1>
-        <p className="text-xl text-gray-600">Trending on InternArea 🔥</p>
+        <p className="text-base sm:text-xl text-gray-600">Trending on InternArea 🔥</p>
       </div>
       {/* Swiper section */}
-      <div className="mb-16">
+      <div className="mb-10 sm:mb-16 w-full overflow-hidden">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={30}
+          spaceBetween={16}
           slidesPerView={1}
           navigation
           pagination={{ clickable: true }}
           autoplay={{ delay: 5000 }}
-          className="rounded-xl overflow-hidden shadow-lg"
+          className="rounded-xl overflow-hidden shadow-lg w-full"
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>
-              <div className={`relative h-[400px] ${slide.bgColor}`}>
+              <div className={`relative h-[220px] sm:h-[320px] md:h-[400px] ${slide.bgColor}`}>
                 {/* SVG Pattern Background */}
                 <div className="absolute inset-0 opacity-20">
                   <svg
@@ -257,8 +257,8 @@ export default function SvgSlider() {
                 </div>
 
                 {/* Content */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <h2 className="text-4xl font-bold text-white">
+                <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+                  <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white">
                     {slide.title}
                   </h2>
                 </div>
@@ -268,19 +268,21 @@ export default function SvgSlider() {
         </Swiper>
       </div>
       {/* Category section */}
-      <div className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+      <div className="mb-10 sm:mb-12">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
           Latest internships on Intern Area
         </h2>
-        <div className="flex flex-wrap gap-4">
-          <span className="text-gray-700 font-medium">POPULAR CATEGORIES:</span>
+        <div className="flex flex-wrap gap-2 sm:gap-3 items-center">
+          <span className="text-gray-700 font-semibold text-xs sm:text-sm w-full sm:w-auto mb-1 sm:mb-0">
+            POPULAR CATEGORIES:
+          </span>
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full transition-colors ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                 selectedCategory === category
-                  ? "bg-blue-600 text-white"
+                  ? "bg-blue-600 text-white shadow-xs"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
